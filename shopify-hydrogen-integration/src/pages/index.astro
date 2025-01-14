@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import shopify, {CartProvider}  from "../shopify.ts"
+import ProductList from "../components/react/ProductList.tsx"
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const {products} = await shopify.gqlRequest(shopify.ListProductsQuery).then((res) => res.data);
+---
+
+<Layout>
+	<CartProvider client:load>
+		<ProductList client:load products={products}/>
+	</CartProvider>
+</Layout>
